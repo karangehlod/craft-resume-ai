@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>AI-Driven Resume Builder</h1>
+<form id="resumeForm">
+    <textarea name="jobDescription" placeholder="Paste job description here"></textarea>
+    <textarea name="resumeText" placeholder="Paste your resume here"></textarea>
+    <button type="submit">Analyze Resume</button>
+</form>
+<div id="output"></div>
+{% endblock %}

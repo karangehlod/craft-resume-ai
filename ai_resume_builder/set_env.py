@@ -2,9 +2,16 @@ import json
 import os
 
 def set_env_from_terraform_output(file_path):
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON from {file_path}: {e}")
+        return
+    except FileNotFoundError as e:
+        print(f"File not found: {file_path}")
+        return
+
     os.environ['AZURE_TEXT_ANALYTICS_KEY'] = data['cognitive_account_key']['value']
     os.environ['AZURE_ENDPOINT'] = data['cognitive_account_endpoint']['value']
     os.environ['AZURE_OPENAI_API_KEY'] = data['openai_account_key']['value']

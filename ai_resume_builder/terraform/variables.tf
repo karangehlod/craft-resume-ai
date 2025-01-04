@@ -1,5 +1,6 @@
 variable "subscription_id" {
   description = "Azure Subscription ID"
+  default = "a82de6ac-27bf-4a6b-b36a-2d85e6fbcb80"
 }
 
 variable "openai_model" {

@@ -82,6 +82,7 @@ pip install -r requirements.txt
 4. **Install Azure CLI**
 
    - **On Windows**:
+
      1. Download the Azure CLI Installer from the [Azure CLI installation page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli).
      2. Run the installer and follow the instructions.
      3. Verify installation:
@@ -90,6 +91,7 @@ pip install -r requirements.txt
         ```
 
    - **On macOS**:
+
      1. Install via Homebrew:
         ```sh
         brew update && brew install azure-cli
@@ -119,6 +121,7 @@ Navigate to the terraform directory and initialize and apply the Terraform confi
 ```sh
 cd terraform
 terraform init
+terraform plan
 terraform apply
 terraform output -json > ../terraform_output.json
 cd ..

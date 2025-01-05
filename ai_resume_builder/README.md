@@ -42,7 +42,6 @@ ai_resume_builder/
 ├── run.py
 ├── requirements.txt
 ├── README.md
-├── app.py
 ├── azure_utils.py
 ├── .env
 ├── set_env.py
@@ -92,13 +91,13 @@ cd ..
 Run the set_env.py script to set the environment variables from the Terraform output:
 
 ```sh
-python set_env.py
+python set_env.py terraform_output.json
 ```
 
 ### Step 6: Run the Application
 
 ```sh
-python app.py
+python run.py
 ```
 
 ### Step 7: Access the Application
@@ -131,15 +130,15 @@ Send a POST request to `/parse-job` with the job description in the request body
 
 ### Analyzing Resumes
 
-Send a POST request to `/analyze-resume` with the job description and resume text in the request body to analyze the resume and identify missing skills.
+Send a POST request to `/analyze_resume` with the job description and resume text in the request body to analyze the resume and identify missing skills.
 
 ### Generating Resumes
 
-Send a POST request to `/generate-resume` with user details and job skills in the request body to generate a professional resume.
+Send a POST request to `/generate_resume` with user details and job skills in the request body to generate a professional resume.
 
 ### Uploading Resumes
 
-Send a POST request to `/upload-resume` with the file path and container name in the request body to upload the resume to Azure Blob Storage.
+Send a POST request to `/upload_resume` with the file path and container name in the request body to upload the resume to Azure Blob Storage.
 
 ### Translating Text
 
@@ -147,7 +146,7 @@ Send a POST request to `/translate` with the text and target language in the req
 
 ### Getting Job Insights
 
-Send a GET request to `/job-insights` to get real-time job insights from popular job boards.
+Send a GET request to `/job_insights` to get real-time job insights from popular job boards.
 
 ## Contributing
 

@@ -5,3 +5,5 @@ python-docx
 python-dotenv
 authlib
 requests
+azure-ai-formrecognizer 
+azure-ai-textanalytics

@@ -27,34 +27,30 @@ This project is an AI-driven resume builder that leverages Azure services to par
 ai_resume_builder/
 ├── app/
 │   ├── __init__.py
+│   ├── routes.py
 │   ├── forms.py
 │   ├── models.py
-│   ├── routes.py
-│   ├── static/
 │   ├── templates/
-├── app.py
-├── azure_utils.py
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── result.html
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── js/
+│   │   │   └── scripts.js
 ├── config.py
-├── README.md
-├── requirements.txt
 ├── run.py
+├── requirements.txt
+├── README.md
+├── azure_utils.py
+├── .env
 ├── set_env.py
 ├── terraform/
-│   ├── .terraform/
-│   ├── .terraform.lock.hcl
 │   ├── main.tf
-│   ├── outputs.tf
 │   ├── variables.tf
-├── terraform_output.json
-├── LICENSE
-├── .gitignore
-├── .vscode/
-│   ├── settings.json
-├── venv/
-│   ├── Include/
-│   ├── Lib/
-│   ├── Scripts/
-│   ├── pyvenv.cfg
+│   ├── outputs.tf
+└── venv/
 ```
 
 ## Setup Instructions
@@ -138,7 +134,7 @@ python set_env.py terraform_output.json
 8. **Run the Application**
 
 ```sh
-python app.py
+python run.py
 ```
 
 9. **Access the Application**

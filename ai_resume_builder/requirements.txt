@@ -3,5 +3,5 @@ azure-ai-textanalytics
 azure-storage-blob
 python-docx
 python-dotenv
-Flask-OAuthlib
+authlib
 requests

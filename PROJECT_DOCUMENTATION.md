@@ -132,7 +132,7 @@ cd ..
 Run the set_env.py script to set the environment variables from the Terraform output:
 
 ```sh
-python set_env.py
+python set_env.py terraform_output.json
 ```
 
 8. **Run the Application**

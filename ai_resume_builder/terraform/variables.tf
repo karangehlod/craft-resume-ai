@@ -10,7 +10,7 @@ variable "openai_model" {
 
 variable "openai_api_version" {
   description = "Azure OpenAI API version"
-  default     = "2023-05-15"
+  default     = "2024-05-01-preview"
 }
 
 variable "location" {

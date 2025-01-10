@@ -65,8 +65,9 @@ def extract_text_from_pdf(pdf_file):
         raise
 
 def extract_key_phrases(text):
-    response = text_analytics_client.extract_key_phrases(documents=[{"id": "1", "language": "en", "text": text}])[0]
-    return response.key_phrases
+    # Example implementation that splits text into individual words
+    # You may need to customize this based on your specific requirements
+    return text.split()
 
 def extract_key_phrases_in_batches(text, batch_size=5120):
     text_chunks = [text[i:i + batch_size] for i in range(0, len(text), batch_size)]
@@ -118,14 +119,19 @@ def parse_job():
 def analyze_resume():
     job_description = request.form.get('job_description')
     resume_file = request.files.get('resume_file')
+    resume_text = request.form.get('resume_text')
+
+    if not job_description:
+        return jsonify({"error": "Job description is required"}), 400
 
     if resume_file:
         try:
             resume_text = extract_text_from_pdf(resume_file)
         except UnicodeDecodeError:
             return jsonify({"error": "Failed to decode resume file"}), 400
-    else:
-        resume_text = request.form.get('resume_text')
+
+    if not resume_text:
+        return jsonify({"error": "Resume text or file is required"}), 400
 
     job_skills = extract_key_phrases(job_description)
     try:
@@ -136,9 +142,19 @@ def analyze_resume():
         else:
             raise
 
-    missing_skills = [skill for skill in job_skills if skill not in resume_skills]
-    score = (len(resume_skills) - len(missing_skills)) / len(job_skills) * 100
-    suggested_keywords = [skill for skill in job_skills if skill not in resume_skills]
+    logging.info(f"Job skills: {job_skills}")
+    logging.info(f"Resume skills: {resume_skills}")
+
+    job_skills_set = set(job_skills)
+    resume_skills_set = set(resume_skills)
+
+    missing_skills = list(job_skills_set - resume_skills_set)
+    score = (len(job_skills_set - resume_skills_set) / len(job_skills_set)) * 100
+    suggested_keywords = missing_skills
+
+    logging.info(f"Missing skills: {missing_skills}")
+    logging.info(f"Score: {score}")
+    logging.info(f"Suggested keywords: {suggested_keywords}")
 
     return jsonify({"missing_skills": missing_skills, "score": score, "suggested_keywords": suggested_keywords})
 

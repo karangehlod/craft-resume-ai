@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function AnalyzePage() {
   const [jobDescription, setJobDescription] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
+  const [resumeText, setResumeText] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ function AnalyzePage() {
     setResumeFile(e.target.files[0]);
   };
 
+  const handleResumeTextChange = (e) => {
+    setResumeText(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -24,6 +29,7 @@ function AnalyzePage() {
     if (resumeFile) {
       formData.append("resume_file", resumeFile);
     }
+    formData.append("resume_text", resumeText);
 
     try {
       const response = await fetch("http://localhost:5000/analyze_resume", {
@@ -35,7 +41,6 @@ function AnalyzePage() {
       }
       const result = await response.json();
       setResult(result);
-      navigate("/result", { state: { result, jobDescription } });
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -63,7 +68,14 @@ function AnalyzePage() {
             id="resumeFile"
             accept=".pdf,.doc,.docx"
             onChange={handleResumeFileChange}
-            required
+          />
+        </div>
+        <div>
+          <label htmlFor="resumeText">Resume Text:</label>
+          <textarea
+            id="resumeText"
+            value={resumeText}
+            onChange={handleResumeTextChange}
           />
         </div>
         <button type="submit" disabled={loading}>
@@ -74,7 +86,8 @@ function AnalyzePage() {
         <div className="result-box">
           <h2>Analysis Result</h2>
           <p>Missing Skills: {result.missing_skills.join(", ")}</p>
-          <p>Match Percentage: {result.match_percentage}%</p>
+          <p>Match Percentage: {result.score}%</p>
+          <p>Suggested Keywords: {result.suggested_keywords.join(", ")}</p>
         </div>
       )}
     </div>

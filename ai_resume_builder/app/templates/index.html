@@ -15,4 +15,40 @@
     <button type="submit">Analyze Resume</button>
 </form>
 <div id="output"></div>
+<script>
+document.getElementById('resumeForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const jobDescription = document.querySelector('textarea[name="jobDescription"]').value;
+    const resumeText = document.querySelector('textarea[name="resumeText"]').value;
+    const resumeFile = document.querySelector('input[name="resumeFile"]').files[0];
+
+    const formData = new FormData();
+    formData.append('jobDescription', jobDescription);
+    formData.append('resumeText', resumeText);
+    if (resumeFile) {
+        formData.append('resumeFile', resumeFile);
+    }
+
+    try {
+        const response = await fetch('/api/analyze-resume', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        document.getElementById('output').innerHTML = `
+            <p>Missing Skills: ${data.missing_skills.join(', ')}</p>
+            <p>Score: ${data.score}</p>
+            <p>Suggested Keywords: ${data.suggested_keywords.join(', ')}</p>
+        `;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+});
+</script>
 {% endblock %}
